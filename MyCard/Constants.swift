@@ -12,3 +12,5 @@ import UIKit
 
 var screenWidth : CGFloat { get { return UIScreen.mainScreen().bounds.width } }
 var screenHeight : CGFloat { get { return UIScreen.mainScreen().bounds.height } }
+
+

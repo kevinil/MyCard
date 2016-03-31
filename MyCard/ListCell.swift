@@ -10,15 +10,13 @@ import UIKit
 
 class ListCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet weak var infoIV: UIImageView!
+    @IBOutlet weak var infoLabel: UILabel!
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    @IBOutlet weak var editIV: UIImageView!
+    @IBOutlet weak var editTF: UITextField!
+    
+    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var dutyTF: UITextField!
+    
 }

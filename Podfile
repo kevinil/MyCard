@@ -3,3 +3,6 @@ use_frameworks!
 
 pod 'IQKeyboardManagerSwift'
 pod ‘SnapKit’
+
+pod 'Fabric'
+pod 'Crashlytics'

@@ -11,6 +11,8 @@ import SnapKit
 
 class SensoryView: UIView, UITableViewDelegate, UITableViewDataSource {
     
+    static let sharedInstance = SensoryView()
+    
     var dataArray = ["13983899779","303418755@qq.com","重庆大本营","233333"]
     var images = ["card_phone","card_email","card_loc","card_live"]
     
@@ -53,6 +55,7 @@ class SensoryView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         closeButton = UIButton(frame: CGRectMake(bounds.width - 80, 80 , 20, 20))
         closeButton.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
+        closeButton.addTarget(self, action: #selector(SensoryView.removeSelf), forControlEvents: UIControlEvents.TouchUpInside)
         addSubview(closeButton)
         
         nameView = UIView(frame: CGRectMake(50, 230, bounds.width - 100, 40))
@@ -126,6 +129,10 @@ class SensoryView: UIView, UITableViewDelegate, UITableViewDataSource {
         }else {
             return 80
         }
+    }
+    
+    func removeSelf() {
+        self.removeFromSuperview()
     }
 
 }

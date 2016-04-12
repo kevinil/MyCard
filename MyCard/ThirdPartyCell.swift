@@ -11,9 +11,14 @@ import UIKit
 var thirds : [String] = ["card_wechat","card_weibo","card_maimai","card_in","card_facebook","card_add"]
 var thirdTaps : [UITapGestureRecognizer] = []
 
+protocol ThirdPartyDelegate {
+    func perfromSegueToThirdVC()
+}
+
 class ThirdPartyCell: UITableViewCell {
     
     var sv : UIScrollView!
+    var delegate : ThirdPartyDelegate?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -90,7 +95,8 @@ class ThirdPartyCell: UITableViewCell {
     }
     
     func addMore() {
-        
+        print("add")
+        delegate?.perfromSegueToThirdVC()
     }
 
 }

@@ -10,6 +10,7 @@
 		71D5DEB56E6B584728CF3428 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D541220AA2381F3F806CC5E4 /* Pods.framework */; };
 		C65BFF611CAA2DBA009C35B3 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65BFF601CAA2DBA009C35B3 /* ListCell.swift */; };
 		C65BFF651CAA4719009C35B3 /* ThirdPartyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65BFF641CAA4719009C35B3 /* ThirdPartyCell.swift */; };
+		C69263711CB396C0007CB23B /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69263701CB396C0007CB23B /* ThirdViewController.swift */; };
 		C6AB8C291CACFB5C00EED119 /* ViewController+Land.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AB8C281CACFB5C00EED119 /* ViewController+Land.swift */; };
 		C6AB8C571CAD10F200EED119 /* SensoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AB8C561CAD10F200EED119 /* SensoryView.swift */; };
 		C6AB8C591CAD12F300EED119 /* SensorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AB8C581CAD12F300EED119 /* SensorViewController.swift */; };
@@ -47,6 +48,7 @@
 		C6511E861CABF6A000D25A55 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		C65BFF601CAA2DBA009C35B3 /* ListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		C65BFF641CAA4719009C35B3 /* ThirdPartyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdPartyCell.swift; sourceTree = "<group>"; };
+		C69263701CB396C0007CB23B /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		C6AB8C281CACFB5C00EED119 /* ViewController+Land.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Land.swift"; sourceTree = "<group>"; };
 		C6AB8C561CAD10F200EED119 /* SensoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensoryView.swift; sourceTree = "<group>"; };
 		C6AB8C581CAD12F300EED119 /* SensorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				C65BFF641CAA4719009C35B3 /* ThirdPartyCell.swift */,
 				C6F8B10A1CA929EA00995BA4 /* ViewController.swift */,
 				C6AB8C281CACFB5C00EED119 /* ViewController+Land.swift */,
+				C69263701CB396C0007CB23B /* ThirdViewController.swift */,
 				C6F8B10D1CA932F500995BA4 /* Constants.swift */,
 				C6511E861CABF6A000D25A55 /* Defines.h */,
 			);
@@ -365,6 +368,7 @@
 			files = (
 				C6F8B10B1CA929EA00995BA4 /* ViewController.swift in Sources */,
 				C65BFF611CAA2DBA009C35B3 /* ListCell.swift in Sources */,
+				C69263711CB396C0007CB23B /* ThirdViewController.swift in Sources */,
 				C6F8B0DC1CA9295500995BA4 /* AppDelegate.swift in Sources */,
 				C6AB8C571CAD10F200EED119 /* SensoryView.swift in Sources */,
 				C65BFF651CAA4719009C35B3 /* ThirdPartyCell.swift in Sources */,

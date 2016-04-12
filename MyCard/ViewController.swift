@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThirdPartyDelegate {
 
     @IBOutlet weak var showTVC: UITableView! { didSet { showTVC.showsVerticalScrollIndicator = false } }
     @IBOutlet weak var topCoverIV: UIImageView!
@@ -70,6 +70,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    //append info alert
+    var appendAlert : UIAlertController!
+    
     //bool for owner
     var ownerBool = true
     
@@ -85,6 +88,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var editTap : UITapGestureRecognizer!
     var keyboardIsShown = false
     
+    //camera
+    var cameraTap: UITapGestureRecognizer!
+    var cameraAlert: UIAlertController!
+    
     //more tap
     
     var codeTap : UITapGestureRecognizer!
@@ -93,8 +100,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     //data
     
-    var dataArray = ["13983899779","303418755@qq.com","重庆大本营","233333"]
-    var images = ["card_phone","card_email","card_loc","card_live"]
+    enum InfoCategory {
+        case Phone, Mail, Location, Live, Cool
+    }
+    
+    var wholeArray : [InfoCategory : [String]] = [InfoCategory.Phone : ["card_phone" , "13983899779"],
+                      InfoCategory.Mail : ["card_email" , "303418755@qq.com"],
+                      InfoCategory.Location : ["card_loc" , "重庆大本营"],
+                      InfoCategory.Live : ["card_live" , "233333"],
+                      InfoCategory.Cool : ["card_phone" , "生知载虚"]]
+    var dataArray : [InfoCategory] = [.Phone, .Mail, .Location, .Live]
+    var appendArray = [InfoCategory]()
     
     //MARK: View Did Load
     
@@ -237,12 +253,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setupTaps() {
         editTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.toggleEdit))
         editIV.addGestureRecognizer(editTap)
+        cameraTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.alertCamera))
+        cameraIV.addGestureRecognizer(cameraTap)
         codeTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.showCode))
         codeIV.addGestureRecognizer(codeTap)
         codeCloseTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.closeCode))
         codeDetailCloseIV.addGestureRecognizer(codeCloseTap)
         bgCloseTap = UITapGestureRecognizer(target: self, action: #selector(ViewController.closeCode))
         codeBgView.addGestureRecognizer(bgCloseTap)
+    }
+    
+    func alertCamera() {
+        if cameraAlert == nil {
+            cameraAlert = UIAlertController(title: "设置封面", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            addAlertAction(cameraAlert, title: "拍照", handler: { (alert) in
+                
+            })
+            addAlertAction(cameraAlert, title: "相册", handler: { (alert) in
+                
+            })
+            addCancelAlertAction(cameraAlert, title: "取消", handler: nil)
+            presentViewController(cameraAlert, animated: true, completion: nil)
+        }else {
+            presentViewController(cameraAlert, animated: true, completion: nil)
+        }
     }
     
     func toggleEdit() {
@@ -339,12 +373,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    //Info & Image
+    enum DataCategory {
+        case Image, Text
+    }
+    
+    func covertRow(row: Int, type: DataCategory) -> String {
+        return wholeArray[dataArray[row]]![type.hashValue]
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if tableView.tag == 1 {
             if indexPath.row < dataArray.count {
                 let cell = tableView.dequeueReusableCellWithIdentifier("landInfoCell", forIndexPath: indexPath) as! ListCell
-                cell.infoIV.image = UIImage(named: images[indexPath.row])
-                cell.infoLabel.text = dataArray[indexPath.row]
+                cell.infoIV.image = UIImage(named: covertRow(indexPath.row, type: .Image))
+                cell.infoLabel.text = covertRow(indexPath.row, type: .Text)
                 return cell
             }else {
                 let cell = tableView.dequeueReusableCellWithIdentifier("thirdPartyCell", forIndexPath: indexPath) as! ThirdPartyCell
@@ -360,38 +403,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         return cell
                     }else if indexPath.row < dataArray.count + 1 {
                         let cell = tableView.dequeueReusableCellWithIdentifier("editCell", forIndexPath: indexPath) as! ListCell
-                        cell.editIV.image = UIImage(named: images[indexPath.row - 1])
-                        cell.editTF.text = dataArray[indexPath.row - 1]
+                        cell.editIV.image = UIImage(named: covertRow(indexPath.row - 1, type: .Image))
+                        cell.editTF.text = covertRow(indexPath.row - 1, type: .Text)
                         return cell
                     }else if indexPath.row == dataArray.count + 1 {
                         let cell = tableView.dequeueReusableCellWithIdentifier("addCell", forIndexPath: indexPath)
                         return cell
                     }else {
                         let cell = tableView.dequeueReusableCellWithIdentifier("thirdPartyCell", forIndexPath: indexPath) as! ThirdPartyCell
+                        cell.delegate = self
                         return cell
                     }
                 }else {
                     if indexPath.row < dataArray.count {
                         let cell = tableView.dequeueReusableCellWithIdentifier("infoCell", forIndexPath: indexPath) as! ListCell
-                        cell.infoIV.image = UIImage(named: images[indexPath.row])
-                        cell.infoLabel.text = dataArray[indexPath.row]
+                        cell.infoIV.image = UIImage(named: covertRow(indexPath.row, type: .Image))
+                        cell.infoLabel.text = covertRow(indexPath.row, type: .Text)
                         return cell
                     }else if indexPath.row == dataArray.count {
                         let cell = tableView.dequeueReusableCellWithIdentifier("addCell", forIndexPath: indexPath)
                         return cell
                     }else {
                         let cell = tableView.dequeueReusableCellWithIdentifier("thirdPartyCell", forIndexPath: indexPath) as! ThirdPartyCell
+                        cell.delegate = self
                         return cell
                     }
                 }
             }else {
                 if indexPath.row < dataArray.count {
                     let cell = tableView.dequeueReusableCellWithIdentifier("infoCell", forIndexPath: indexPath) as! ListCell
-                    cell.infoIV.image = UIImage(named: images[indexPath.row])
-                    cell.infoLabel.text = dataArray[indexPath.row]
+                    cell.infoIV.image = UIImage(named: covertRow(indexPath.row, type: .Image))
+                    cell.infoLabel.text = covertRow(indexPath.row, type: .Text)
                     return cell
                 }else {
                     let cell = tableView.dequeueReusableCellWithIdentifier("thirdPartyCell", forIndexPath: indexPath) as! ThirdPartyCell
+                    cell.delegate = self
                     return cell
                 }
             }
@@ -426,6 +472,51 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if tableView.tag == 0 {
+            if ownerBool && editStyle && indexPath.row < dataArray.count + 1 {
+                return true
+            }else if ownerBool && !editStyle && indexPath.row < dataArray.count {
+                return true
+            }else {
+                return false
+            }
+        }else {
+            return false
+        }
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        editStyle ? dataArray.removeAtIndex(indexPath.row - 1) : dataArray.removeAtIndex(indexPath.row)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let clearView = UIView(frame: CGRectZero)
+        clearView.backgroundColor = UIColor.clearColor()
+        return clearView
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if tableView.tag == 1 {
+            return 0
+        }else {
+            return 20
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.tag == 0 {
+            if editStyle && indexPath.row == dataArray.count + 1 {
+                appendInfoAlert()
+            }else if !editStyle && indexPath.row == dataArray.count {
+                appendInfoAlert()
+            }
+        }
+    }
+    
+    
+    
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.separatorInset = UIEdgeInsetsZero
         cell.preservesSuperviewLayoutMargins = false
@@ -433,7 +524,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+    //append information
+    func appendInfoAlert() {
+        var tempIndexs = [Int]()
+        let tempArray = Array(wholeArray.keys)
+        for item in dataArray {
+            for index in 0..<tempArray.count {
+                if item == tempArray[index] {
+                    tempIndexs.insert(index, atIndex: 0)
+                }
+            }
+        }
+        
+        if appendAlert == nil {
+            appendAlert = UIAlertController(title: "添加一行信息", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+            addAlertAction(appendAlert, title: "全部添加", handler: { (action) in
+                
+            })
+            presentViewController(appendAlert!, animated: true, completion: nil)
+        }else {
+            presentViewController(appendAlert!, animated: true, completion: nil)
+        }
+    }
     
+
     
+    func perfromSegueToThirdVC() {
+        performSegueWithIdentifier("showThirdVC", sender: nil)
+    }
+    
+   
 
 }

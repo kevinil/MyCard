@@ -1,13 +1,20 @@
 PODS:
-  - IQKeyboardManagerSwift (4.0.0)
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.7)
+  - IQKeyboardManagerSwift (4.0.1)
   - SnapKit (0.20.0)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - IQKeyboardManagerSwift
   - SnapKit
 
 SPEC CHECKSUMS:
-  IQKeyboardManagerSwift: ede2a27b4e1ce053d03073b9c7fa439322f5e405
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  IQKeyboardManagerSwift: e92246955e21dad73ad9dc89b80adb134d8bb395
   SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
 
 COCOAPODS: 0.39.0
